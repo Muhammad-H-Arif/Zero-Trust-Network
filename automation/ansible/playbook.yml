@@ -1,0 +1,35 @@
+
+- name: Configure Zero-Trust Environment
+  hosts: all
+  become: true
+
+  tasks:
+    - name: Ensure iptables is installed
+      apt:
+        name: iptables
+        state: present
+
+    - name: Deploy firewall rules
+      copy:
+        src: ../implementation/configuration_files/firewall_rules.sh
+        dest: /etc/iptables/rules.sh
+        mode: '0755'
+
+    - name: Apply firewall rules
+      command: bash /etc/iptables/rules.sh
+
+    - name: Install and configure Nginx with TLS
+      apt:
+        name: nginx
+        state: present
+
+    - name: Deploy Nginx TLS configuration
+      copy:
+        src: ../implementation/configuration_files/nginx_tls.conf
+        dest: /etc/nginx/sites-available/default
+        mode: '0644'
+
+    - name: Restart Nginx
+      service:
+        name: nginx
+        state: restarted
