@@ -57,7 +57,7 @@ zero-trust-network/
 
 #### 1. Clone the Repository
 ```bash
-git clone https://github.com/yourusername/zero-trust-network.git
+git remote add origin https://github.com/Muhammad-H-Arif/Zero-Trust-Network.git
 cd zero-trust-network
 ```
 
